@@ -5,7 +5,7 @@ import com.test.rpn.reversepolishcalculator.domain.error.InvalidOperatorExceptio
 import com.test.rpn.reversepolishcalculator.usecase.port.Operation;
 import org.springframework.stereotype.Component;
 
-import java.util.Stack;
+import java.util.Deque;
 
 import static com.test.rpn.reversepolishcalculator.domain.constant.AppConstants.*;
 
@@ -13,36 +13,36 @@ import static com.test.rpn.reversepolishcalculator.domain.constant.AppConstants.
 public class OperationImpl extends Calculator implements Operation {
 
     @Override
-    public double apply(String token, Stack<Double> stack) {
+    public double apply(String operator, Deque<Double> deque) {
         double left;
         double right;
 
-        switch (token) {
+        switch (operator) {
             case ADD -> {
-                left = stack.pop();
-                right = stack.pop();
+                left = deque.pop();
+                right = deque.pop();
                 return add(right, left);
             }
             case SUBTRACT -> {
-                left = stack.pop();
-                right = stack.pop();
+                left = deque.pop();
+                right = deque.pop();
                 return subtract(right, left);
             }
             case MULTIPLY -> {
-                left = stack.pop();
-                right = stack.pop();
+                left = deque.pop();
+                right = deque.pop();
                 return multiply(right, left);
             }
             case DIVIDE -> {
-                left = stack.pop();
-                right = stack.pop();
+                left = deque.pop();
+                right = deque.pop();
                 return divide(right, left);
             }
             case SQRT -> {
-                right = stack.pop();
+                right = deque.pop();
                 return squareRoot(right);
             }
-            default -> throw new InvalidOperatorException(INVALID_OPERATOR + token);
+            default -> throw new InvalidOperatorException(INVALID_OPERATOR + operator);
         }
     }
 }

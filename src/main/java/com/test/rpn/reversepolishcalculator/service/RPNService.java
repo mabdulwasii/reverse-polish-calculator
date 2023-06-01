@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class RPNService {
 
-    private final Logger logger = LoggerFactory.getLogger(RPNService.class);
+    private static final Logger log = LoggerFactory.getLogger(RPNService.class);
 
     private final CalculatorUseCase useCase;
 
@@ -19,7 +19,7 @@ public class RPNService {
     }
 
     public RPNResult calculate(RPNInput input) {
-        logger.info ("RPNService::input {} ", input);
+        log.info ("RPNService::input {} ", input);
         return useCase.evaluate(input.getValue());
     }
 }
