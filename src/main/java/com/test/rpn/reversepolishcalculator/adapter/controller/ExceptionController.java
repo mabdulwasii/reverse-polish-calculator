@@ -12,7 +12,6 @@ import static com.test.rpn.reversepolishcalculator.domain.constant.AppConstants.
 
 @ControllerAdvice
 public class ExceptionController {
-
     // For UI Pages
     @ExceptionHandler(InvalidRpnNotationException.class)
     public String invalidRpnNotationException(InvalidRpnNotationException ex, Model model) {
@@ -55,5 +54,4 @@ public class ExceptionController {
         model.addAttribute(RESPONSE_KEY, new RPNResult(null, ex.getMessage()));
         return "index";
     }
-
 }
