@@ -10,12 +10,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
-import java.util.ArrayDeque;
 import java.util.ArrayList;
-import java.util.Deque;
 import java.util.List;
+import java.util.Stack;
 
-import static com.test.rpn.reversepolishcalculator.domain.constant.AppConstants.INVALID_RPN_NOTATION;
+import static com.test.rpn.reversepolishcalculator.domain.constant.AppConstants.INPUT_REQUIRED;
 import static com.test.rpn.reversepolishcalculator.domain.constant.AppConstants.INVALID_VALUE_INPUT;
 import static java.util.Arrays.asList;
 import static java.util.Collections.addAll;
@@ -24,11 +23,10 @@ import static java.util.Collections.addAll;
 public class CalculatorUseCase {
 
     private static final Logger log = LoggerFactory.getLogger(CalculatorUseCase.class);
-
     private final Operation operation;
     private final ValidateOperator validateOperator;
 
-    private final Deque<Double> deque = new ArrayDeque<>();
+    private final Stack<Double> stack = new Stack<>();
 
     protected CalculatorUseCase(Operation operation, ValidateOperator validateOperator) {
         this.operation = operation;
@@ -38,30 +36,28 @@ public class CalculatorUseCase {
     public RPNResult evaluate(String input) {
         double output = 0;
 
-        String [] tokens = evaluateExpression(input);
+        String[] tokens = evaluateExpression(input);
 
         for (String token : tokens) {
             if (token.matches("-?\\d+(\\.\\d+)?")) {
-                deque.add(getParsedDouble(token));
-            } else if (validateOperator.isOperator(token)){
-                        output = operation.apply(token, deque);
-                        deque.add(output);
+                stack.add(getParsedDouble(token));
+            } else if (validateOperator.isOperator(token)) {
+                output = operation.apply(token, stack);
+                stack.add(output);
             } else {
-                throw new InvalidInputException(INVALID_VALUE_INPUT  + token);
+                throw new InvalidInputException(INVALID_VALUE_INPUT + token);
             }
         }
-        if(deque.isEmpty()) {
-            return new RPNResult(output, "");
 
-        }
-
-        throw new InvalidRpnNotationException(INVALID_RPN_NOTATION + input);
+        log.info("Stack size afterwards {}  then {}", stack.size(), stack.peek());
+        stack.clear();
+        return new RPNResult(output);
     }
 
     private static double getParsedDouble(String token) {
         try {
             return Double.parseDouble(token);
-        }catch (NumberFormatException e) {
+        } catch (NumberFormatException e) {
             log.info("Invalid double value");
             throw new NumberFormatException("Invalid double value");
         }
@@ -70,7 +66,7 @@ public class CalculatorUseCase {
 
     private String[] evaluateExpression(String input) {
         if (!StringUtils.hasText(input)) {
-            throw new InvalidRpnNotationException("RPN Notation should not be null or empty.");
+            throw new InvalidRpnNotationException(INPUT_REQUIRED);
         }
         String[] tokens = input.trim().split(" ");
 

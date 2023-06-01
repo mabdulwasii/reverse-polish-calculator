@@ -1,31 +1,26 @@
 package com.test.rpn.reversepolishcalculator.adapter.model;
 
 public class RPNResult {
-    private double result;
-    private String errorMessage;
+    private Double result;
+    private String error;
 
-    public RPNResult(double result, String errorMessage) {
+    public RPNResult(Double result, String error) {
         this.result = result;
-        this.errorMessage = errorMessage;
+        this.error = error;
+    }
+
+    public RPNResult(Double result) {
+        this.result = result;
     }
 
     public RPNResult() {}
 
-    public double getResult() {
+    public Double getResult() {
         return result;
     }
 
-    public RPNResult setResult(double result) {
+    public RPNResult setResult(Double result) {
         this.result = result;
-        return this;
-    }
-
-    public String getErrorMessage() {
-        return errorMessage;
-    }
-
-    public RPNResult setErrorMessage(String errorMessage) {
-        this.errorMessage = errorMessage;
         return this;
     }
 
@@ -33,7 +28,7 @@ public class RPNResult {
     public String toString() {
         return "RPNResult{" +
                 "result=" + result +
-                ", errorMessage='" + errorMessage + '\'' +
+                "error=" + error +
                 '}';
     }
 }

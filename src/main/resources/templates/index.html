@@ -12,26 +12,40 @@
 	        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
 	        crossorigin="anonymous"></script>
 	
-	<link rel="stylesheet" href="../static/css/style.css" type="text/css"/>
-	<title>Reverse Polish Calculator</title>
+	<link th:href="@{/css/style.css}" rel="stylesheet"/>
+	
+	<title>RPN Calculator</title>
 </head>
-<body class=" bg-secondary ">
+
+<body class="bg-secondary ">
 <div class="w-400 position-absolute top-50 start-50 translate-middle
 			d-flex flex-column align-items-center">
 	<form
 			role="form"
 			method="post"
-			th:action="@{/calculate}"
+			th:action="@{/}"
 			th:object="${input}"
 	>
 		<div class=" bg-white d-flex flex-column justify-content-center p-5 pb-3">
-			<label for="calculatorInput" class="form-label text-info d-inline-flex mb-4">
+			<label for="input" class="form-label text-info d-inline-flex mb-4">
 				Enter RPN notation separated by space
 			</label>
-			<input type="text" th:field="*{value}" class="form-control mb-3" id="calculatorInput" placeholder="5 3 4 + *">
-			<p class="text-danger mb-3">Error</p>
+			
+			<input type="text" th:field="*{value}"
+			       class="form-control mb-1" id="input" placeholder="5 3 4 + *"/>
+			
+			<p class="text-danger mb-2" th:id="error" name="error"
+			   th:classappend="${error == null ? 'invisible' : 'visible'}">Error:
+				<span th:text="${error}"></span>
+			</p>
+			
 			<button type="submit" class="btn btn-primary mb-3">Calculate</button>
-			<p class="fs-5 text-success text-center">Result: <span class="blink" th:text="${result.getResult()}"></span></p>
+			
+			<p class="fs-5 text-success text-center " id="response" name="response"
+			   th:classappend="${response.getResult() == null ? 'invisible' : 'visible'}">
+				Result: <span class="blink" th:text="${response.getResult()}"></span>
+			</p>
+			
 		</div>
 	</form>
 	<h1 class="h2 text-center text-warning p-2">RPN Calculator</h1>

@@ -5,7 +5,7 @@ import com.test.rpn.reversepolishcalculator.domain.error.InvalidOperatorExceptio
 import com.test.rpn.reversepolishcalculator.usecase.port.Operation;
 import org.springframework.stereotype.Component;
 
-import java.util.Deque;
+import java.util.Stack;
 
 import static com.test.rpn.reversepolishcalculator.domain.constant.AppConstants.*;
 
@@ -13,33 +13,33 @@ import static com.test.rpn.reversepolishcalculator.domain.constant.AppConstants.
 public class OperationImpl extends Calculator implements Operation {
 
     @Override
-    public double apply(String operator, Deque<Double> deque) {
+    public double apply(String operator, Stack<Double> stack) {
         double left;
         double right;
 
         switch (operator) {
             case ADD -> {
-                left = deque.pop();
-                right = deque.pop();
+                left = stack.pop();
+                right = stack.pop();
                 return add(right, left);
             }
             case SUBTRACT -> {
-                left = deque.pop();
-                right = deque.pop();
+                left = stack.pop();
+                right = stack.pop();
                 return subtract(right, left);
             }
             case MULTIPLY -> {
-                left = deque.pop();
-                right = deque.pop();
+                left = stack.pop();
+                right = stack.pop();
                 return multiply(right, left);
             }
             case DIVIDE -> {
-                left = deque.pop();
-                right = deque.pop();
+                left = stack.pop();
+                right = stack.pop();
                 return divide(right, left);
             }
             case SQRT -> {
-                right = deque.pop();
+                right = stack.pop();
                 return squareRoot(right);
             }
             default -> throw new InvalidOperatorException(INVALID_OPERATOR + operator);
