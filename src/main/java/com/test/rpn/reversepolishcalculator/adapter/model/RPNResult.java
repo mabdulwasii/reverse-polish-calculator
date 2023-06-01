@@ -24,6 +24,15 @@ public class RPNResult {
         return this;
     }
 
+    public String getError() {
+        return error;
+    }
+
+    public RPNResult setError(String error) {
+        this.error = error;
+        return this;
+    }
+
     @Override
     public String toString() {
         return "RPNResult{" +

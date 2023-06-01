@@ -17,7 +17,7 @@ public class AppConstants {
     public static final String EVALUATION_ERROR_CANNOT_DIVIDE_BY_0 = "Cannot divide by 0";
     public static final String CANNOT_SQRT_NEGATIVE_NUMBER = "Cannot square root -ve";
     public static final String INVALID_OPERATOR = "Invalid operator";
-    public static final String INVALID_VALUE_INPUT = "Invalid value Input ";
+    public static final String INVALID_VALUE_INPUT = "Invalid RPN notation ";
     public static final String INPUT_KEY = "input";
     public static final String RESPONSE_KEY = "response";
     public static final String INPUT_REQUIRED = "Input required";
