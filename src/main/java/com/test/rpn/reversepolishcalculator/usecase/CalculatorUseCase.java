@@ -10,12 +10,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Deque;
 import java.util.List;
-import java.util.Stack;
 
 import static com.test.rpn.reversepolishcalculator.domain.constant.AppConstants.INPUT_REQUIRED;
-import static com.test.rpn.reversepolishcalculator.domain.constant.AppConstants.INVALID_VALUE_INPUT;
+import static com.test.rpn.reversepolishcalculator.domain.constant.AppConstants.INVALID_RPN_NOTATION;
 import static java.util.Arrays.asList;
 import static java.util.Collections.addAll;
 
@@ -26,7 +27,7 @@ public class CalculatorUseCase {
     private final Operation operation;
     private final ValidateOperator validateOperator;
 
-    private final Stack<Double> stack = new Stack<>();
+    private final Deque<Double> deque = new ArrayDeque<>();
 
     protected CalculatorUseCase(Operation operation, ValidateOperator validateOperator) {
         this.operation = operation;
@@ -40,21 +41,23 @@ public class CalculatorUseCase {
 
         for (String token : tokens) {
             if (token.matches("-?\\d+(\\.\\d+)?")) {
-                stack.add(getParsedDouble(token));
+                deque.push(getParsedDouble(token));
             } else if (validateOperator.isOperator(token)) {
-                if (!hasValidOperands(getOperator(token).getOperandCount())) {
-                    throw new OperandNotEnoughException("Operands not enough");
-                }
-                output = operation.apply(token, stack);
-                stack.add(output);
+                validateOperands(validateOperator.getOperandCount(token));
+                output = operation.apply(token, deque);
+                deque.push(output);
             } else {
-                throw new InvalidInputException(INVALID_VALUE_INPUT + token);
+                throw new InvalidInputException(INVALID_RPN_NOTATION + token);
             }
         }
 
-        log.info("Stack size afterwards {}  then {}", stack.size(), stack.peek());
-        stack.clear();
-        return new RPNResult(output);
+        return new RPNResult(deque.poll());
+    }
+
+    private void validateOperands(int operandCount) {
+        if (deque.size() < operandCount) {
+            throw new OperandNotEnoughException("Operands not enough");
+        }
     }
 
     private static double getParsedDouble(String token) {
@@ -72,6 +75,10 @@ public class CalculatorUseCase {
             throw new InvalidRpnNotationException(INPUT_REQUIRED);
         }
         String[] tokens = input.trim().split(" ");
+
+        if (tokens.length < 2) {
+            throw new InvalidRpnNotationException(INVALID_RPN_NOTATION);
+        }
 
         List<String> tokenList = new ArrayList<>(tokens.length);
         addAll(tokenList, tokens);
