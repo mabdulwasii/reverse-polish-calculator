@@ -7,7 +7,7 @@ import java.util.Set;
 public class AppConstants {
     private AppConstants() {}
 
-    public static final Set<String> OPERATORS = new HashSet<>(Arrays.asList("(", ")", "+", "-", "%", "/", "*", "SQRT"));
+    public static final Set<String> OPERATORS = new HashSet<>(Arrays.asList("+", "-", "%", "/", "*", "SQRT"));
 
     public static final String ADD = "+";
     public static final String SUBTRACT = "-";
