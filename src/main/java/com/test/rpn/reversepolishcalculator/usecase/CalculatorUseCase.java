@@ -1,8 +1,8 @@
 package com.test.rpn.reversepolishcalculator.usecase;
 
 import com.test.rpn.reversepolishcalculator.adapter.model.RPNResult;
-import com.test.rpn.reversepolishcalculator.domain.error.InvalidInputException;
-import com.test.rpn.reversepolishcalculator.domain.error.InvalidRpnNotationException;
+import com.test.rpn.reversepolishcalculator.domain.exception.InvalidInputException;
+import com.test.rpn.reversepolishcalculator.domain.exception.InvalidRpnNotationException;
 import com.test.rpn.reversepolishcalculator.usecase.port.Operation;
 import com.test.rpn.reversepolishcalculator.usecase.port.ValidateOperator;
 import org.slf4j.Logger;
@@ -42,6 +42,9 @@ public class CalculatorUseCase {
             if (token.matches("-?\\d+(\\.\\d+)?")) {
                 stack.add(getParsedDouble(token));
             } else if (validateOperator.isOperator(token)) {
+                if (!hasValidOperands(getOperator(token).getOperandCount())) {
+                    throw new OperandNotEnoughException("Operands not enough");
+                }
                 output = operation.apply(token, stack);
                 stack.add(output);
             } else {

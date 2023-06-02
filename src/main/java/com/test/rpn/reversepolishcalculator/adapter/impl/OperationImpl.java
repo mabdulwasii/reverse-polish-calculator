@@ -1,7 +1,7 @@
 package com.test.rpn.reversepolishcalculator.adapter.impl;
 
 import com.test.rpn.reversepolishcalculator.domain.Calculator;
-import com.test.rpn.reversepolishcalculator.domain.error.InvalidOperatorException;
+import com.test.rpn.reversepolishcalculator.domain.exception.InvalidOperatorException;
 import com.test.rpn.reversepolishcalculator.usecase.port.Operation;
 import org.springframework.stereotype.Component;
 

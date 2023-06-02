@@ -1,4 +1,4 @@
-package com.test.rpn.reversepolishcalculator.domain.error;
+package com.test.rpn.reversepolishcalculator.domain.exception;
 
 import static com.test.rpn.reversepolishcalculator.domain.constant.AppConstants.CANNOT_SQRT_NEGATIVE_NUMBER;
 

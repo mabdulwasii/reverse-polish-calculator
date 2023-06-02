@@ -1,4 +1,4 @@
-package com.test.rpn.reversepolishcalculator.domain.error;
+package com.test.rpn.reversepolishcalculator.domain.exception;
 
 public class InvalidRpnNotationException extends RuntimeException {
 

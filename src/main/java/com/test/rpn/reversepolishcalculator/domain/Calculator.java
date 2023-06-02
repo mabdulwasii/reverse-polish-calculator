@@ -1,7 +1,7 @@
 package com.test.rpn.reversepolishcalculator.domain;
 
-import com.test.rpn.reversepolishcalculator.domain.error.DivisionByZeroException;
-import com.test.rpn.reversepolishcalculator.domain.error.SquareRootException;
+import com.test.rpn.reversepolishcalculator.domain.exception.DivisionByZeroException;
+import com.test.rpn.reversepolishcalculator.domain.exception.SquareRootException;
 
 public abstract class Calculator {
     public double multiply(double a, double b) {
