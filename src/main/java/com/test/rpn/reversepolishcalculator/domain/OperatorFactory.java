@@ -10,7 +10,7 @@ import static com.test.rpn.reversepolishcalculator.domain.constant.AppConstants.
 public class OperatorFactory {
 
     protected static final Set<Operator> OPERATOR_SET = new HashSet<>();
-    private static final Set<String> OPERATORS_STRING =
+    public static final Set<String> OPERATORS_STRING =
             new HashSet<>(Arrays.asList(ADD, SUBTRACT, DIVIDE, MULTIPLY, SQRT));
 
 

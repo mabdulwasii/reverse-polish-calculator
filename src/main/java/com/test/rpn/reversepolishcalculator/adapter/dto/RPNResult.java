@@ -1,4 +1,4 @@
-package com.test.rpn.reversepolishcalculator.adapter.model;
+package com.test.rpn.reversepolishcalculator.adapter.dto;
 
 public class RPNResult {
     private Double result;

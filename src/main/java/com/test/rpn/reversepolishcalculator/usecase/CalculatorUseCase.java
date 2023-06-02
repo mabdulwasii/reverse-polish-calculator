@@ -1,6 +1,6 @@
 package com.test.rpn.reversepolishcalculator.usecase;
 
-import com.test.rpn.reversepolishcalculator.adapter.model.RPNResult;
+import com.test.rpn.reversepolishcalculator.adapter.dto.RPNResult;
 import com.test.rpn.reversepolishcalculator.domain.exception.InvalidInputException;
 import com.test.rpn.reversepolishcalculator.domain.exception.InvalidRpnNotationException;
 import com.test.rpn.reversepolishcalculator.usecase.port.Operation;
@@ -40,7 +40,7 @@ public class CalculatorUseCase {
         String[] tokens = evaluateExpression(input);
 
         for (String token : tokens) {
-            if (token.matches("-?\\d+(\\.\\d+)?")) {
+            if (token.trim().matches("-?\\d+(\\.\\d+)?")) {
                 deque.push(getParsedDouble(token));
             } else if (validateOperator.isOperator(token)) {
                 validateOperands(validateOperator.getOperandCount(token));

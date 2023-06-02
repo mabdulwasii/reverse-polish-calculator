@@ -1,15 +1,16 @@
 package com.test.rpn.reversepolishcalculator.adapter.controller;
 
 
-import com.test.rpn.reversepolishcalculator.adapter.model.RPNInput;
-import com.test.rpn.reversepolishcalculator.adapter.model.RPNResult;
+import com.test.rpn.reversepolishcalculator.adapter.dto.RPNInput;
+import com.test.rpn.reversepolishcalculator.adapter.dto.RPNResult;
 import com.test.rpn.reversepolishcalculator.service.RPNService;
-import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import javax.validation.Valid;
 
 import static com.test.rpn.reversepolishcalculator.domain.constant.AppConstants.INPUT_KEY;
 import static com.test.rpn.reversepolishcalculator.domain.constant.AppConstants.RESPONSE_KEY;

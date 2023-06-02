@@ -1,7 +1,7 @@
 package com.test.rpn.reversepolishcalculator.domain.exception;
 
-import com.test.rpn.reversepolishcalculator.adapter.model.RPNInput;
-import com.test.rpn.reversepolishcalculator.adapter.model.RPNResult;
+import com.test.rpn.reversepolishcalculator.adapter.dto.RPNInput;
+import com.test.rpn.reversepolishcalculator.adapter.dto.RPNResult;
 import com.test.rpn.reversepolishcalculator.usecase.OperandNotEnoughException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
